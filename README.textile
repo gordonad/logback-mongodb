@@ -6,8 +6,8 @@ h2. Configuration
 
 p. If you add 
 
-bc. <appender name="MONGO" class="de.belaso.logback.MongoDBAppender">
-  <connectionSource class="de.belaso.logback.MongoDBConnectionSource">
+bc. <appender name="MONGO" class="logback.mongodb.MongoDBAppender">
+  <connectionSource class="logback.mongodb.MongoDBConnectionSource">
     <uri>mongodb://localhost</uri>
     <db>logdb</db>
     <collection>logs</collection>
