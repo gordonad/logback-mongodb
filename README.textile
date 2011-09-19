@@ -1,3 +1,18 @@
-h1.Test
+h1. logback.mongodb
 
-h2.Test2
+This project contains a "Logback":http://logback.qos.ch/ "appender":http://logback.qos.ch/manual/appenders.html for "mongoDB":http://www.mongodb.org/.
+
+h2. Configuration
+
+p. If you add 
+
+bc. 
+<appender name="MONGO" class="de.belaso.logback.MongoDBAppender">
+  <connectionSource class="de.belaso.logback.MongoDBConnectionSource">
+    <uri>mongodb://localhost</uri>
+    <db>logdb</db>
+    <collection>logs</collection>
+  </connectionSource>
+</appender>
+	
+p. into your @logback.xml@ or @logback-test.xml@ file, Logback will append your logs into @logdb@ mongo database using the @logs@ collection.
