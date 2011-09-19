@@ -5,6 +5,8 @@ Bundle-SymbolicName: logback.mongodb
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Christian Trutz
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: ch.qos.logback.classic.spi,
+Import-Package: ch.qos.logback.classic,
+ ch.qos.logback.classic.spi,
  ch.qos.logback.core,
  com.mongodb
+Export-Package: logback.mongodb

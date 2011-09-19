@@ -36,8 +36,6 @@ public class MongoDBConnectionSource {
 									@Override
 									public void run() {
 										mongo.close();
-										System.out
-												.println("Bye, bye mongo ...");
 									}
 								}, "mongo shutdown"));
 					} catch (MongoException mongoException) {
@@ -48,7 +46,7 @@ public class MongoDBConnectionSource {
 				}
 			}
 		}
-		return dbCollectionHelper;
+		return dbCollection;
 	}
 
 	public void setUri(String uri) {

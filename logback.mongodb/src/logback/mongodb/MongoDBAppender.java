@@ -21,7 +21,7 @@ public class MongoDBAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 		logEntry.append("logger", eventObject.getLoggerName());
 		logEntry.append("thread", eventObject.getThreadName());
 		logEntry.append("timestamp", new Date(eventObject.getTimeStamp()));
-		logEntry.append("level", eventObject.getLevel());
+		logEntry.append("level", eventObject.getLevel().toString());
 		connectionSource.getDBCollection().insert(logEntry);
 	}
 
