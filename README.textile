@@ -6,8 +6,7 @@ h2. Configuration
 
 p. If you add 
 
-bc. 
-<appender name="MONGO" class="de.belaso.logback.MongoDBAppender">
+bc. <appender name="MONGO" class="de.belaso.logback.MongoDBAppender">
   <connectionSource class="de.belaso.logback.MongoDBConnectionSource">
     <uri>mongodb://localhost</uri>
     <db>logdb</db>
@@ -15,4 +14,6 @@ bc.
   </connectionSource>
 </appender>
 	
-p. into your @logback.xml@ or @logback-test.xml@ file, Logback will append your logs into @logdb@ mongo database using the @logs@ collection.
+p. into your @logback.xml@ or @logback-test.xml@ file, Logback will connect to @mongodb://localhost@ server and append your logs into @logdb@ mongo database using the @logs@ collection.
+
+p. Please see also "mongoDB connection documentation":http://www.mongodb.org/display/DOCS/Connections for more and detailed infos on mongo URIs.  
