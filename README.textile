@@ -14,6 +14,4 @@ bc. <appender name="MONGO" class="logback.mongodb.MongoDBAppender">
   </connectionSource>
 </appender>
 	
-p. into your @logback.xml@ or @logback-test.xml@ file, Logback will connect to @mongodb://localhost@ server and append your logs into @logdb@ mongo database using the @logs@ collection.
-
-p. Please see also "mongoDB connection documentation":http://www.mongodb.org/display/DOCS/Connections for more and detailed infos on mongo URIs.  
+p. into your @logback.xml@ or @logback-test.xml@ file, Logback will connect to @mongodb://localhost@ server and append your logs into @logdb@ mongo database using the @logs@ collection. Please see also "mongoDB connection documentation":http://www.mongodb.org/display/DOCS/Connections for more and detailed infos on mongo URIs.  
