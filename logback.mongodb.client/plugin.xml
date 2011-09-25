@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="logback.mongodb.client.category"
+            name="%logback.mongodb.client.category">
+      </category>
+      <view
+            category="logback.mongodb.client.category"
+            class="logback.mongodb.client.LogsView"
+            icon="icons/obj16/logs.png"
+            id="logback.mongodb.client.LogsView"
+            name="%logback.mongodb.client.LogsView"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
