@@ -18,9 +18,9 @@ public class LogsContentProvider implements ILazyContentProvider {
 
 	private List<DBObject> seen = new LinkedList<DBObject>();
 
-	protected LogsContentProvider(TableViewer viewer) {
+	protected LogsContentProvider(TableViewer viewer, DBCursor dbCursor) {
 		this.viewer = viewer;
-		dbCursor = MongoConnection.getDBCollection().find();
+		this.dbCursor = dbCursor;
 	}
 
 	@Override

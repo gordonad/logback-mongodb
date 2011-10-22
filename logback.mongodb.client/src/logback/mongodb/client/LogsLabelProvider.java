@@ -20,15 +20,15 @@ public class LogsLabelProvider extends LabelProvider implements
 			DBObject log = (DBObject) element;
 			switch (columnIndex) {
 			case 0:
-				return log.get("message").toString();
+				return log.get(LogProperty.MESSAGE.propertyName()).toString();
 			case 1:
-				return log.get("logger").toString();
+				return log.get(LogProperty.LOGGER.propertyName()).toString();
 			case 2:
-				return log.get("thread").toString();
+				return log.get(LogProperty.THREAD.propertyName()).toString();
 			case 3:
-				return log.get("timestamp").toString();
+				return log.get(LogProperty.TIMESTAMP.propertyName()).toString();
 			case 4:
-				return log.get("level").toString();
+				return log.get(LogProperty.LEVEL.propertyName()).toString();
 			default:
 				break;
 			}

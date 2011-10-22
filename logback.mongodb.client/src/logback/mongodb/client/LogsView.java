@@ -19,42 +19,24 @@ public class LogsView extends ViewPart {
 
 	private TableViewer logs = null;
 
+	private DBCollection dbCollection = null;
+
 	@Override
 	public void createPartControl(Composite parent) {
 		Composite root = new Composite(parent, SWT.NONE);
 		root.setLayout(new FillLayout());
 		logs = new TableViewer(root, SWT.VIRTUAL | SWT.MULTI | SWT.H_SCROLL
-				| SWT.V_SCROLL | SWT.BORDER);
-
+				| SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		Table logsTable = logs.getTable();
 		logsTable.setHeaderVisible(true);
-
-		TableColumn column = new TableColumn(logsTable, SWT.NONE);
-		column.setText("message");
-		column.setWidth(300);
-		column.setMoveable(true);
-
-		column = new TableColumn(logsTable, SWT.NONE);
-		column.setText("logger");
-		column.setWidth(100);
-		column.setMoveable(true);
-
-		column = new TableColumn(logsTable, SWT.NONE);
-		column.setText("thread");
-		column.setWidth(100);
-		column.setMoveable(true);
-
-		column = new TableColumn(logsTable, SWT.NONE);
-		column.setText("timestamp");
-		column.setWidth(100);
-		column.setMoveable(true);
-
-		column = new TableColumn(logsTable, SWT.NONE);
-		column.setText("level");
-		column.setWidth(50);
-		column.setMoveable(true);
-
-		logs.setContentProvider(new LogsContentProvider(logs));
+		for (LogProperty logProperty : LogProperty.values()) {
+			TableColumn column = new TableColumn(logsTable, SWT.NONE);
+			column.setText(logProperty.propertyName());
+			column.setWidth(logProperty.columnWidth());
+			column.setMoveable(true);
+		}
+		logs.setContentProvider(new LogsContentProvider(logs, getDBCollection()
+				.find()));
 		logs.setLabelProvider(new LogsLabelProvider());
 		logs.setItemCount((int) getDBCollection().count());
 	}
@@ -65,11 +47,10 @@ public class LogsView extends ViewPart {
 			logs.getTable().setFocus();
 	}
 
-	private DBCollection dbCollection = null;
-
-	private DBCollection getDBCollection() {
+	protected DBCollection getDBCollection() {
 		if (dbCollection == null)
 			try {
+				// TODO make this configurable
 				Mongo mongo = new Mongo(new MongoURI("mongodb://localhost"));
 				dbCollection = mongo.getDB("jboss").getCollection("logs");
 			} catch (MongoException mongoException) {
