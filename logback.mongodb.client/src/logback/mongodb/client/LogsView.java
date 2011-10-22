@@ -1,5 +1,7 @@
 package logback.mongodb.client;
 
+import java.net.UnknownHostException;
+
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -7,6 +9,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
+
+import com.mongodb.DBCollection;
+import com.mongodb.Mongo;
+import com.mongodb.MongoException;
+import com.mongodb.MongoURI;
 
 public class LogsView extends ViewPart {
 
@@ -49,13 +56,28 @@ public class LogsView extends ViewPart {
 
 		logs.setContentProvider(new LogsContentProvider(logs));
 		logs.setLabelProvider(new LogsLabelProvider());
-		logs.setItemCount((int) MongoConnection.getDBCollection().count());
+		logs.setItemCount((int) getDBCollection().count());
 	}
 
 	@Override
 	public void setFocus() {
 		if (logs != null)
 			logs.getTable().setFocus();
+	}
+
+	private DBCollection dbCollection = null;
+
+	private DBCollection getDBCollection() {
+		if (dbCollection == null)
+			try {
+				Mongo mongo = new Mongo(new MongoURI("mongodb://localhost"));
+				dbCollection = mongo.getDB("jboss").getCollection("logs");
+			} catch (MongoException mongoException) {
+				mongoException.printStackTrace();
+			} catch (UnknownHostException unknownHostException) {
+				unknownHostException.printStackTrace();
+			}
+		return dbCollection;
 	}
 
 }
