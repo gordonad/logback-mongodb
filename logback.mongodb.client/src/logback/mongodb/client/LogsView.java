@@ -29,6 +29,7 @@ public class LogsView extends ViewPart {
 				| SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		Table logsTable = logs.getTable();
 		logsTable.setHeaderVisible(true);
+		logsTable.setLinesVisible(true);
 		for (LogProperty logProperty : LogProperty.values()) {
 			TableColumn column = new TableColumn(logsTable, SWT.NONE);
 			column.setText(logProperty.propertyName());
@@ -50,13 +51,11 @@ public class LogsView extends ViewPart {
 	protected DBCollection getDBCollection() {
 		if (dbCollection == null)
 			try {
-				// TODO make this configurable
+				// TODO make mongo URI configurable
 				Mongo mongo = new Mongo(new MongoURI("mongodb://localhost"));
 				dbCollection = mongo.getDB("jboss").getCollection("logs");
-			} catch (MongoException mongoException) {
-				mongoException.printStackTrace();
-			} catch (UnknownHostException unknownHostException) {
-				unknownHostException.printStackTrace();
+			} catch (MongoException | UnknownHostException exception) {
+				exception.printStackTrace();
 			}
 		return dbCollection;
 	}

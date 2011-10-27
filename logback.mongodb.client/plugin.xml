@@ -3,14 +3,10 @@
 <plugin>
    <extension
          point="org.eclipse.ui.views">
-      <category
-            id="logback.mongodb.client.category"
-            name="%logback.mongodb.client.category">
-      </category>
       <view
-            category="logback.mongodb.client.category"
+            category="org.eclipse.ui"
             class="logback.mongodb.client.LogsView"
-            icon="icons/obj16/logs.png"
+            icon="icons/obj16/error_log.gif"
             id="logback.mongodb.client.LogsView"
             name="%logback.mongodb.client.LogsView"
             restorable="true">
