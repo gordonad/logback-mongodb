@@ -4,10 +4,14 @@ import java.net.UnknownHostException;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 import com.mongodb.DBCollection;
@@ -24,7 +28,16 @@ public class LogsView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		Composite root = new Composite(parent, SWT.NONE);
-		root.setLayout(new FillLayout());
+		root.setLayout(new GridLayout(1, true));
+
+		Text searchText = new Text(root, SWT.BORDER | SWT.SEARCH);
+		searchText.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
+				| GridData.HORIZONTAL_ALIGN_FILL));
+		searchText.addKeyListener(new KeyAdapter() {
+			public void keyReleased(KeyEvent keyEvent) {
+			}
+		});
+
 		logs = new TableViewer(root, SWT.VIRTUAL | SWT.MULTI | SWT.H_SCROLL
 				| SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		Table logsTable = logs.getTable();
@@ -36,6 +49,9 @@ public class LogsView extends ViewPart {
 			column.setWidth(logProperty.columnWidth());
 			column.setMoveable(true);
 		}
+		logsTable.setLayoutData(new GridData(GridData.GRAB_HORIZONTAL
+				| GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_VERTICAL
+				| GridData.VERTICAL_ALIGN_FILL));
 		logs.setContentProvider(new LogsContentProvider(logs, getDBCollection()
 				.find()));
 		logs.setLabelProvider(new LogsLabelProvider());
